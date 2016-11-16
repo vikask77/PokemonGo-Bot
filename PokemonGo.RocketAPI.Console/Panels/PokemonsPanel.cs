@@ -66,7 +66,7 @@ namespace PokemonGo.RocketAPI.Console
             {
                 try
                 {
-                    if (Logic.Logic._client != null && Logic.Logic._client.readyToUse != false)
+                    if (Logic.Logic.Client != null && Logic.Logic.Client.readyToUse != false)
                     {
                         break;
                     }
@@ -97,7 +97,7 @@ namespace PokemonGo.RocketAPI.Console
             await check();
             try
             {
-                client = Logic.Logic._client;
+                client = Logic.Logic.Client;
                 if (client.readyToUse != false)
                 {
                     await Task.Delay(1000);
@@ -473,7 +473,7 @@ namespace PokemonGo.RocketAPI.Console
                     {
                         File.AppendAllText(logs, $"[{date}] - MANUAL - Sucessfully transfered {transfered}/{total} Pokemons." + Environment.NewLine);
                     }
-                    MessageBox.Show("Succesfully transfered " + transfered + "/" + total + " Pokemons.", "Transfer status", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    statusTexbox.Text = $"Succesfully transfered {transfered}/{total} Pokemons.";
                 }
                 RefreshTitle();
             }
