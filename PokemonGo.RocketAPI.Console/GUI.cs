@@ -270,8 +270,6 @@ namespace PokemonGo.RocketAPI.Console
                     CB_SimulatePGO.Checked = config.simulatedPGO;
                     checkBox_KeepPokemonWhichCanBeEvolved.Checked = config.keepPokemonsThatCanEvolve;
                     checkBox_UseLuckyEggIfNotRunning.Checked = config.UseLuckyEggIfNotRunning;
-                    checkBox_AutoIncubate.Checked = config.AutoIncubate;
-                    checkBox_UseBasicIncubators.Checked = config.UseBasicIncubators;
 
                     // tab 2 - Pokemons
                     if (config.pokemonsToHold != null)
@@ -340,7 +338,16 @@ namespace PokemonGo.RocketAPI.Console
                     text_MaxHyperPotions.Text = config.MaxHyperPotions.ToString();
                     text_MaxTopPotions.Text = config.MaxTopPotions.ToString();
                     text_MaxRazzBerrys.Text = config.MaxBerries.ToString();
+
+                    //tab eggs
+                    checkBox_AutoIncubate.Checked = config.AutoIncubate;
+                    checkBox_UseBasicIncubators.Checked = config.UseBasicIncubators;
+                    checkBox_10kmEggs.Checked = config.No10kmEggs;
+                    checkBox_2kmEggs.Checked = config.No2kmEggs;
+                    checkBox_5kmEggs.Checked = config.No5kmEggs;
+
                     // tab 5 proxy
+
 
                     // tab 6 walk
                     text_Speed.Text = config.WalkingSpeedInKilometerPerHour.ToString();
@@ -387,10 +394,6 @@ namespace PokemonGo.RocketAPI.Console
                     checkbox_checkWhileRunning.Checked = config.CheckWhileRunning;
                     langSelected = config.SelectedLanguage;
 
-                    //tab eggs
-                    /*checkBox_2kmEggs.Checked = Globals.No2kmEggs;
-                    checkbox_5kmEggs.Checked = Globals.No5kmEggs;
-                    checkbox_10kmEggs.Checked = Globals.No10kmEggs;*/
                     var success = LoadGlobals(false);
                     if (!success)
                     {
@@ -525,6 +528,7 @@ namespace PokemonGo.RocketAPI.Console
         private void button1_Click(object sender, EventArgs e)
         {
             var selectedCoords =Globals.latitute.ToString("0.000000") +";"+Globals.longitude.ToString("0.000000");
+            
             selectedCoords = selectedCoords.Replace(",",".");
             if (selectedCoords.Equals(NEW_YORK_COORS))
             {
@@ -634,8 +638,6 @@ namespace PokemonGo.RocketAPI.Console
             Globals.simulatedPGO = CB_SimulatePGO.Checked;
             Globals.keepPokemonsThatCanEvolve = checkBox_KeepPokemonWhichCanBeEvolved.Checked;
             Globals.useLuckyEggIfNotRunning = checkBox_UseLuckyEggIfNotRunning.Checked;
-            Globals.autoIncubate = checkBox_AutoIncubate.Checked;
-            Globals.useBasicIncubators = checkBox_UseBasicIncubators.Checked;
 
             // tab 2 - pokemons
             Globals.noTransfer.Clear();
@@ -708,7 +710,15 @@ namespace PokemonGo.RocketAPI.Console
             ret &= textBoxToGlobalInt(text_MaxRazzBerrys, "berry");
             ret &= textBoxToGlobalInt(MinCPtoCatch, "MinCPtoCatch");
             ret &= textBoxToGlobalInt(MinIVtoCatch, "MinIVtoCatch");
-            // tab 5 - Proxy
+
+            // tab  - Eggs
+            Globals.autoIncubate = checkBox_AutoIncubate.Checked;
+            Globals.useBasicIncubators = checkBox_UseBasicIncubators.Checked;
+            Globals.No2kmEggs = checkBox_2kmEggs.Checked;
+            Globals.No5kmEggs = checkBox_5kmEggs.Checked;
+            Globals.No10kmEggs = checkBox_10kmEggs.Checked;
+
+            // tab  - Proxy
             /*
             UserSettings.Default.UseProxyVerified = checkBox_UseProxy.Checked;
             UserSettings.Default.UseProxyAuthentication = checkBox_UseProxyAuth.Checked;
@@ -804,9 +814,7 @@ namespace PokemonGo.RocketAPI.Console
 
             //tab Eggs
 
-            /*Globals.No2kmEggs = checkBox_2kmEggs.Checked;
-            Globals.No5kmEggs = checkbox_5kmEggs.Checked;
-            Globals.No10kmEggs = checkbox_10kmEggs.Checked;*/
+
             #endregion
             return ret;
         }
@@ -858,6 +866,7 @@ namespace PokemonGo.RocketAPI.Console
             {
                 return false;
             }
+           
         }
 
         #region CheckedChanged Events
@@ -902,10 +911,6 @@ namespace PokemonGo.RocketAPI.Console
             }
         }
 
-        private void chkAutoIncubate_CheckedChanged(object sender, EventArgs e)
-        {
-            checkBox_UseBasicIncubators.Enabled = checkBox_AutoIncubate.Checked;
-        }
         #endregion
 
         private void GUI_FormClosing(object sender, FormClosingEventArgs e)
@@ -1061,6 +1066,9 @@ namespace PokemonGo.RocketAPI.Console
             checkBox_EnablePokemonListGui.Text = TranslationHandler.GetString("enablePokemonListGUI", "Enable Pokemon List GUI");
             checkBox_KeepPokemonWhichCanBeEvolved.Text = TranslationHandler.GetString("keepPokemonWhichCanBeEvolved", "Keep Pokemons which can be evolved");
             checkBox_AutoIncubate.Text = TranslationHandler.GetString("autoIncubate", "Auto incubate");
+            checkBox_10kmEggs.Text = TranslationHandler.GetString("10kmEggs", "Don't Use 10 Km Eggs");
+            checkBox_5kmEggs.Text = TranslationHandler.GetString("5kmEggs", "Don't Use 5 Km Eggs");
+            checkBox_2kmEggs.Text = TranslationHandler.GetString("2kmEggs", "Don't Use 2 Km Eggs");
             checkBox_UseBasicIncubators.Text = TranslationHandler.GetString("useBasicIncubators", "Use basic incubators");
             checkbox_PWDEncryption.Text = TranslationHandler.GetString("pwdEncryption", "Encrypt password on config file");
         }
